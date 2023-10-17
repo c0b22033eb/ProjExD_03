@@ -147,7 +147,6 @@ class Bomb:
 class Explosion:
     """
     爆発エフェクトを実装する
-        
     """
     def __init__(self, bomb:Bomb):
         self.img = pg.image.load(f"ex03/fig/explosion.gif")
