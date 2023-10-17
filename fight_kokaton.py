@@ -160,7 +160,17 @@ class Explosion:
         screen.blit(self.flip_img[self.life], self.exp_rct)
 
 
+class Score:
+    def __init__(self):
+        self.font = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
+        self.color = (0, 0, 255)
+        self.score = 0
+        self.img = self.font.render("表示させる文字列", 0, self.color)
+        self.center = 100, HEIGHT-50
 
+    def update(self, screen: pg.Surface):
+        txt = self.font.render(f"スコア：{self.score}", True, (self.color))
+        screen.blit(txt, self.center)
 
 
 def main():
@@ -171,6 +181,7 @@ def main():
     bombs = [Bomb() for _ in range(NUM_OF_BOMBS)]
     beam = None
     explosion = []
+    score = Score()
 
     clock = pg.time.Clock()
     tmr = 0
@@ -198,6 +209,7 @@ def main():
                 if beam.rct.colliderect(bomb.rct): # ビームと爆弾の衝突判定
                     bird.change_img(6, screen)
                     # 撃墜=Noneにする
+                    score.score += 1
                     explosion.append(Explosion(bomb))
                     beam = None
                     bombs[i] = None
@@ -214,6 +226,7 @@ def main():
             bomb.update(screen)
         if beam is not None:
             beam.update(screen)
+        score.update(screen)
         pg.display.update()
         tmr += 1
         clock.tick(50)
