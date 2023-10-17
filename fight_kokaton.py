@@ -56,6 +56,7 @@ class Bird:
         self.img = self.imgs[(+5, 0)]
         self.rct = self.img.get_rect()
         self.rct.center = xy
+        self.dire = (+5, 0)
 
     def change_img(self, num: int, screen: pg.Surface):
         """
@@ -82,6 +83,8 @@ class Bird:
             self.rct.move_ip(-sum_mv[0], -sum_mv[1])
         if not (sum_mv[0] == 0 and sum_mv[1] == 0):
             self.img = self.imgs[tuple(sum_mv)]
+        if not sum_mv == [0, 0]:
+            self.dire = sum_mv
         screen.blit(self.img, self.rct)
 
 
@@ -94,8 +97,10 @@ class Beam:
         self.img = pg.image.load(f"ex03/fig/beam.png")
         self.rct = self.img.get_rect()
         self.rct.left = bird.rct.right  # こうかとんの右横座標
+        self.rct.centerx = bird.rct.centerx + 
         self.rct.centery = bird.rct.centery  # こうかとんの中心縦座標
-        self.vx, self.vy = +5, 0
+        self.vx, self.vy = bird.dire
+        math.degrees(math.atan2(-self.vy, self.vx))
 
     def update(self, screen: pg.Surface):
         """
