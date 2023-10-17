@@ -151,7 +151,8 @@ class Explosion:
     """
     def __init__(self, bomb:Bomb):
         self.img = pg.image.load(f"ex03/fig/explosion.gif")
-        self.flip_img = [self.img, pg.transform.flip(self.img, True, False), pg.transform.flip(self.img, False, True), pg.transform.flip(self.img, True, True)]
+        self.flip_img = [self.img, pg.transform.flip(self.img, True, False), pg.transform.flip(self.img, False, True),
+                         pg.transform.flip(self.img, True, True)]
         self.exp_rct = bomb.rct.center
         self.life = 4
 
